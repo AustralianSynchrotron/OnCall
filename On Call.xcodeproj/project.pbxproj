@@ -39,6 +39,7 @@
 /* Begin PBXFileReference section */
 		DC8FA1D7184DFD840076D63F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		DC8FA21E184E1F6A0076D63F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		DC8FA220184E3C000076D63F /* SiteSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiteSettings.h; sourceTree = "<group>"; };
 		DCD5CE89184DF56C0078171E /* On Call.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On Call.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCD5CE8C184DF56C0078171E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DCD5CE8E184DF56C0078171E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -125,6 +126,7 @@
 			children = (
 				DCD5CEC4184DF7E60078171E /* View Controllers */,
 				DCD5CEC5184DF7F00078171E /* Models */,
+				DC8FA220184E3C000076D63F /* SiteSettings.h */,
 				DCD5CE9B184DF56C0078171E /* ASAppDelegate.h */,
 				DCD5CE9C184DF56C0078171E /* ASAppDelegate.m */,
 				DCD5CE9E184DF56C0078171E /* Main.storyboard */,

@@ -10,6 +10,7 @@
 #import "ASPerson.h"
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
+#import "SiteSettings.h"
 
 @interface ASOnCallViewController () <ABPersonViewControllerDelegate>
 
@@ -17,6 +18,7 @@
 @property (strong, nonatomic) NSArray *peopleOnCall;
 @property (nonatomic) BOOL addressBookAccessGranted;
 @property (strong, nonatomic) ASPerson *selectedPerson;
+@property (strong, nonatomic) NSOperationQueue *updateQueue;
 
 @end
 
@@ -25,11 +27,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.peopleOnCall = @[
-        [ASPerson personWithName:@"James White" inGroup:@"Electrical"],
-        [ASPerson personWithName:@"John Brown" inGroup:@"Mechanical"],
-        [ASPerson personWithName:@"Jane Black" inGroup:@"Controls"]
-    ];
+    self.peopleOnCall = @[];
+    
+    self.updateQueue = [[NSOperationQueue alloc] init];
+    self.updateQueue.name = @"Update Queue";
+    self.updateQueue.maxConcurrentOperationCount = 1;
     
     self.addressBookAccessGranted = NO; // We will check this soon.
     self.addressBook =  ABAddressBookCreateWithOptions(NULL, NULL);
@@ -37,6 +39,12 @@
         ABAddressBookRegisterExternalChangeCallback(self.addressBook, addressBookChangedExternally, (__bridge void *)(self));
         [self checkAddressBookAccess];
     }
+    
+    [self updatePeopleOnCall];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 - (void)pushPersonViewController:(ABRecordRef)personRecord animated:(BOOL)animated {
@@ -46,6 +54,33 @@
     personViewController.allowsActions = YES;
     personViewController.allowsEditing = NO;
     [self.navigationController pushViewController:personViewController animated:animated];
+}
+
+#pragma mark - Update
+
+- (void)updatePeopleOnCall {
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:ASOnCallHost]];
+    [NSURLConnection sendAsynchronousRequest:request queue:self.updateQueue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        
+        if (connectionError) return;
+        
+        NSError *jsonError;
+        NSDictionary *onCallDict = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
+        
+        if (jsonError) return;
+        
+        NSMutableArray *peopleOnCall = [NSMutableArray arrayWithCapacity:[onCallDict count]];
+        [onCallDict enumerateKeysAndObjectsUsingBlock:^(NSString *group, NSString *name, BOOL *stop) {
+            [peopleOnCall addObject:[ASPerson personWithName:name inGroup:group]];
+        }];
+        
+        self.peopleOnCall = peopleOnCall;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+        
+    }];
 }
 
 #pragma mark - Address book access
