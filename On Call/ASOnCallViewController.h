@@ -10,4 +10,6 @@
 
 @interface ASOnCallViewController : UITableViewController
 
+- (void)updatePeopleOnCall;
+
 @end

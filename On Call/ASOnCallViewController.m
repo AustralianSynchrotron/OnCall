@@ -19,6 +19,7 @@
 @property (nonatomic) BOOL addressBookAccessGranted;
 @property (strong, nonatomic) ASPerson *selectedPerson;
 @property (strong, nonatomic) NSOperationQueue *updateQueue;
+@property (strong, nonatomic) NSDate *lastUpdated;
 
 @end
 
@@ -43,10 +44,6 @@
     [self updatePeopleOnCall];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
 - (void)pushPersonViewController:(ABRecordRef)personRecord animated:(BOOL)animated {
     ABPersonViewController *personViewController = [[ABPersonViewController alloc] init];
     personViewController.personViewDelegate = self;
@@ -61,13 +58,19 @@
 - (void)updatePeopleOnCall {
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:ASOnCallHost]];
     [NSURLConnection sendAsynchronousRequest:request queue:self.updateQueue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        
-        if (connectionError) return;
+
+        if (connectionError) {
+            [self updateFailed];
+            return;
+        }
         
         NSError *jsonError;
         NSDictionary *onCallDict = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
         
-        if (jsonError) return;
+        if (jsonError) {
+            [self updateFailed];
+            return;
+        }
         
         NSMutableArray *peopleOnCall = [NSMutableArray arrayWithCapacity:[onCallDict count]];
         [onCallDict enumerateKeysAndObjectsUsingBlock:^(NSString *group, NSString *name, BOOL *stop) {
@@ -75,12 +78,23 @@
         }];
         
         self.peopleOnCall = peopleOnCall;
+        self.lastUpdated = [NSDate date];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
         
     }];
+}
+
+- (void)updateFailed {
+    static NSTimeInterval MaximumDataAge = 3600.0f;
+    if (!self.lastUpdated || [self.lastUpdated timeIntervalSinceNow] < -MaximumDataAge) {
+        self.peopleOnCall = @[];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    }
 }
 
 #pragma mark - Address book access
@@ -104,7 +118,6 @@
 
 - (void)requestAddressBookAccess {
     ASOnCallViewController * __weak weakSelf = self;
-    
     ABAddressBookRequestAccessWithCompletion(weakSelf.addressBook, ^(bool granted, CFErrorRef error) {
         weakSelf.addressBookAccessGranted = granted;
     });
