@@ -66,17 +66,17 @@
         }
         
         NSError *jsonError;
-        NSDictionary *onCallDict = (NSDictionary *)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
+        NSArray *fetchedOnCallData = (NSArray *)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
         
         if (jsonError) {
             [self updateFailed];
             return;
         }
         
-        NSMutableArray *peopleOnCall = [NSMutableArray arrayWithCapacity:[onCallDict count]];
-        [onCallDict enumerateKeysAndObjectsUsingBlock:^(NSString *group, NSString *name, BOOL *stop) {
-            [peopleOnCall addObject:[ASPerson personWithName:name inGroup:group]];
-        }];
+        NSMutableArray *peopleOnCall = [NSMutableArray arrayWithCapacity:[fetchedOnCallData count]];
+        for (NSDictionary *onCallSpec in fetchedOnCallData) {
+            [peopleOnCall addObject:[ASPerson personWithName:onCallSpec[@"name"] inGroup:onCallSpec[@"group"]]];
+        }
         
         self.peopleOnCall = peopleOnCall;
         self.lastUpdated = [NSDate date];
