@@ -9,8 +9,9 @@
 #import "ASOnCallViewController.h"
 #import "ASPerson.h"
 #import <AddressBook/AddressBook.h>
+#import <AddressBookUI/AddressBookUI.h>
 
-@interface ASOnCallViewController ()
+@interface ASOnCallViewController () <ABPersonViewControllerDelegate>
 
 @property (assign, nonatomic) ABAddressBookRef addressBook;
 @property (strong, nonatomic) NSArray *peopleOnCall;
@@ -22,7 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.contentInset = UIEdgeInsetsMake(20.0f, 0.0f, 0.0f, 0.0f);
     
     self.peopleOnCall = @[
         [ASPerson personWithName:@"James White" inGroup:@"Electrical"],
@@ -81,6 +81,34 @@
     cell.detailTextLabel.text = person.name;
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (!self.addressBookAccessGranted) {
+        // TODO: Alert user that access must be granted
+        return;
+    }
+    
+    ASPerson *person = (ASPerson *)self.peopleOnCall[indexPath.row];
+    CFStringRef name = (__bridge CFStringRef)person.name;
+    NSArray *matches = (NSArray *)CFBridgingRelease(ABAddressBookCopyPeopleWithName(self.addressBook, name));
+    if(matches != nil && [matches count]) {
+        ABRecordRef personRecord = (__bridge ABRecordRef)matches[0];
+        ABPersonViewController *personViewController = [[ABPersonViewController alloc] init];
+        personViewController.personViewDelegate = self;
+        personViewController.displayedPerson = personRecord;
+        personViewController.allowsActions = YES;
+        personViewController.allowsEditing = YES;
+        [self.navigationController pushViewController:personViewController animated:YES];
+    } else {
+        // TODO: Alert user that person is not in addressbook
+    }
+}
+
+#pragma mark - ABPersonViewControllerDelegate
+
+- (BOOL)personViewController:(ABPersonViewController *)personViewController shouldPerformDefaultActionForPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier {
+    return YES;
 }
 
 @end
