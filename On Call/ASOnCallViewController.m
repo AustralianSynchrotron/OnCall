@@ -7,6 +7,7 @@
 //
 
 #import "ASOnCallViewController.h"
+#import "ASOnCallCell.h"
 #import "ASPerson.h"
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
@@ -168,13 +169,23 @@ void addressBookChangedExternally(ABAddressBookRef addressBook, CFDictionaryRef 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    ASOnCallCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     ASPerson *person = (ASPerson *)self.peopleOnCall[indexPath.row];
-
-    cell.textLabel.text = person.group;
-    cell.detailTextLabel.text = person.name;
-    cell.userInteractionEnabled = ![person.name isEqualToString:@""];
+    
+    cell.groupLabel.text = person.group;
+    
+    if ([person.name isEqualToString:@""]) {
+        cell.nameLabel.text = @"No-One";
+        cell.nameLabel.textColor = [UIColor lightGrayColor];
+        cell.groupLabel.textColor = [UIColor lightGrayColor];
+        cell.userInteractionEnabled = NO;
+    } else {
+        cell.nameLabel.text = person.name;
+        cell.nameLabel.textColor = [UIColor blackColor];
+        cell.groupLabel.textColor = [UIColor blackColor];
+        cell.userInteractionEnabled = YES;
+    }
     
     return cell;
 }

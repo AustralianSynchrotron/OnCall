@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DC8FA1D8184DFD840076D63F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8FA1D7184DFD840076D63F /* AddressBook.framework */; };
 		DC8FA21F184E1F6A0076D63F /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8FA21E184E1F6A0076D63F /* AddressBookUI.framework */; };
+		DC8FA223184E59310076D63F /* ASOnCallCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DC8FA222184E59310076D63F /* ASOnCallCell.m */; };
 		DCD5CE8D184DF56C0078171E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD5CE8C184DF56C0078171E /* Foundation.framework */; };
 		DCD5CE8F184DF56C0078171E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD5CE8E184DF56C0078171E /* CoreGraphics.framework */; };
 		DCD5CE91184DF56C0078171E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD5CE90184DF56C0078171E /* UIKit.framework */; };
@@ -40,6 +41,8 @@
 		DC8FA1D7184DFD840076D63F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		DC8FA21E184E1F6A0076D63F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		DC8FA220184E3C000076D63F /* SiteSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiteSettings.h; sourceTree = "<group>"; };
+		DC8FA221184E59310076D63F /* ASOnCallCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASOnCallCell.h; sourceTree = "<group>"; };
+		DC8FA222184E59310076D63F /* ASOnCallCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASOnCallCell.m; sourceTree = "<group>"; };
 		DCD5CE89184DF56C0078171E /* On Call.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On Call.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCD5CE8C184DF56C0078171E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DCD5CE8E184DF56C0078171E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -89,6 +92,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DC8FA224184E59370076D63F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DC8FA221184E59310076D63F /* ASOnCallCell.h */,
+				DC8FA222184E59310076D63F /* ASOnCallCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		DCD5CE80184DF56C0078171E = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				DCD5CEC4184DF7E60078171E /* View Controllers */,
+				DC8FA224184E59370076D63F /* Views */,
 				DCD5CEC5184DF7F00078171E /* Models */,
 				DC8FA220184E3C000076D63F /* SiteSettings.h */,
 				DCD5CE9B184DF56C0078171E /* ASAppDelegate.h */,
@@ -284,6 +297,7 @@
 				DCD5CEC8184DF8310078171E /* ASPerson.m in Sources */,
 				DCD5CE9D184DF56C0078171E /* ASAppDelegate.m in Sources */,
 				DCD5CEC3184DF7020078171E /* ASOnCallViewController.m in Sources */,
+				DC8FA223184E59310076D63F /* ASOnCallCell.m in Sources */,
 				DCD5CE99184DF56C0078171E /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
