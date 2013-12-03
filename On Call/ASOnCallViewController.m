@@ -16,6 +16,7 @@
 @property (assign, nonatomic) ABAddressBookRef addressBook;
 @property (strong, nonatomic) NSArray *peopleOnCall;
 @property (nonatomic) BOOL addressBookAccessGranted;
+@property (strong, nonatomic) ASPerson *selectedPerson;
 
 @end
 
@@ -30,8 +31,21 @@
         [ASPerson personWithName:@"Jane Black" inGroup:@"Controls"]
     ];
     
+    self.addressBookAccessGranted = NO; // We will check this soon.
     self.addressBook =  ABAddressBookCreateWithOptions(NULL, NULL);
-    [self checkAddressBookAccess];
+    if (self.addressBook) {
+        ABAddressBookRegisterExternalChangeCallback(self.addressBook, addressBookChangedExternally, (__bridge void *)(self));
+        [self checkAddressBookAccess];
+    }
+}
+
+- (void)pushPersonViewController:(ABRecordRef)personRecord animated:(BOOL)animated {
+    ABPersonViewController *personViewController = [[ABPersonViewController alloc] init];
+    personViewController.personViewDelegate = self;
+    personViewController.displayedPerson = personRecord;
+    personViewController.allowsActions = YES;
+    personViewController.allowsEditing = NO;
+    [self.navigationController pushViewController:personViewController animated:animated];
 }
 
 #pragma mark - Address book access
@@ -59,6 +73,39 @@
     ABAddressBookRequestAccessWithCompletion(weakSelf.addressBook, ^(bool granted, CFErrorRef error) {
         weakSelf.addressBookAccessGranted = granted;
     });
+}
+
+#pragma mark - Address book updates
+
+void addressBookChangedExternally(ABAddressBookRef addressBook, CFDictionaryRef info, void *context) {
+    ASOnCallViewController *onCallViewController = (__bridge ASOnCallViewController *)context;
+    [onCallViewController updateAddressBook];
+}
+
+- (void)updateAddressBook {
+    self.addressBook = ABAddressBookCreateWithOptions(NULL, NULL);
+    id topViewController = [self.navigationController topViewController];
+    if ([topViewController isKindOfClass:[ABPersonViewController class]]) {
+        ABRecordRef personRecord = [self personRecordForPerson:self.selectedPerson];
+        if (personRecord != NULL) {
+            [self.navigationController popViewControllerAnimated:NO];
+            [self pushPersonViewController:personRecord animated:NO];
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+}
+
+#pragma mark - Find person
+
+- (ABRecordRef)personRecordForPerson:(ASPerson *)person {
+    CFStringRef name = (__bridge CFStringRef)person.name;
+    NSArray *matches = (NSArray *)CFBridgingRelease(ABAddressBookCopyPeopleWithName(self.addressBook, name));
+    if(matches != nil && [matches count]) {
+        return (__bridge ABRecordRef)matches[0];
+    } else {
+        return NULL;
+    }
 }
 
 #pragma mark - Table view data source
@@ -89,17 +136,10 @@
         return;
     }
     
-    ASPerson *person = (ASPerson *)self.peopleOnCall[indexPath.row];
-    CFStringRef name = (__bridge CFStringRef)person.name;
-    NSArray *matches = (NSArray *)CFBridgingRelease(ABAddressBookCopyPeopleWithName(self.addressBook, name));
-    if(matches != nil && [matches count]) {
-        ABRecordRef personRecord = (__bridge ABRecordRef)matches[0];
-        ABPersonViewController *personViewController = [[ABPersonViewController alloc] init];
-        personViewController.personViewDelegate = self;
-        personViewController.displayedPerson = personRecord;
-        personViewController.allowsActions = YES;
-        personViewController.allowsEditing = YES;
-        [self.navigationController pushViewController:personViewController animated:YES];
+    self.selectedPerson = (ASPerson *)self.peopleOnCall[indexPath.row];
+    ABRecordRef personRecord = [self personRecordForPerson:self.selectedPerson];
+    if(personRecord != NULL) {
+        [self pushPersonViewController:personRecord animated:YES];
     } else {
         // TODO: Alert user that person is not in addressbook
     }
