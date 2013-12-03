@@ -14,13 +14,14 @@
 		DCD5CE99184DF56C0078171E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD5CE98184DF56C0078171E /* main.m */; };
 		DCD5CE9D184DF56C0078171E /* ASAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD5CE9C184DF56C0078171E /* ASAppDelegate.m */; };
 		DCD5CEA0184DF56C0078171E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCD5CE9E184DF56C0078171E /* Main.storyboard */; };
-		DCD5CEA3184DF56C0078171E /* ASViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD5CEA2184DF56C0078171E /* ASViewController.m */; };
 		DCD5CEA5184DF56C0078171E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCD5CEA4184DF56C0078171E /* Images.xcassets */; };
 		DCD5CEAC184DF56C0078171E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD5CEAB184DF56C0078171E /* XCTest.framework */; };
 		DCD5CEAD184DF56C0078171E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD5CE8C184DF56C0078171E /* Foundation.framework */; };
 		DCD5CEAE184DF56C0078171E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD5CE90184DF56C0078171E /* UIKit.framework */; };
 		DCD5CEB6184DF56C0078171E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCD5CEB4184DF56C0078171E /* InfoPlist.strings */; };
 		DCD5CEB8184DF56C0078171E /* On_CallTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD5CEB7184DF56C0078171E /* On_CallTests.m */; };
+		DCD5CEC3184DF7020078171E /* ASOnCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD5CEC2184DF7020078171E /* ASOnCallViewController.m */; };
+		DCD5CEC8184DF8310078171E /* ASPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD5CEC7184DF8310078171E /* ASPerson.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,14 +46,16 @@
 		DCD5CE9B184DF56C0078171E /* ASAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASAppDelegate.h; sourceTree = "<group>"; };
 		DCD5CE9C184DF56C0078171E /* ASAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASAppDelegate.m; sourceTree = "<group>"; };
 		DCD5CE9F184DF56C0078171E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		DCD5CEA1184DF56C0078171E /* ASViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASViewController.h; sourceTree = "<group>"; };
-		DCD5CEA2184DF56C0078171E /* ASViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASViewController.m; sourceTree = "<group>"; };
 		DCD5CEA4184DF56C0078171E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		DCD5CEAA184DF56C0078171E /* On CallTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "On CallTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCD5CEAB184DF56C0078171E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		DCD5CEB3184DF56C0078171E /* On CallTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "On CallTests-Info.plist"; sourceTree = "<group>"; };
 		DCD5CEB5184DF56C0078171E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DCD5CEB7184DF56C0078171E /* On_CallTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = On_CallTests.m; sourceTree = "<group>"; };
+		DCD5CEC1184DF7020078171E /* ASOnCallViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASOnCallViewController.h; sourceTree = "<group>"; };
+		DCD5CEC2184DF7020078171E /* ASOnCallViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASOnCallViewController.m; sourceTree = "<group>"; };
+		DCD5CEC6184DF8310078171E /* ASPerson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASPerson.h; sourceTree = "<group>"; };
+		DCD5CEC7184DF8310078171E /* ASPerson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASPerson.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,11 +115,11 @@
 		DCD5CE92184DF56C0078171E /* On Call */ = {
 			isa = PBXGroup;
 			children = (
+				DCD5CEC4184DF7E60078171E /* View Controllers */,
+				DCD5CEC5184DF7F00078171E /* Models */,
 				DCD5CE9B184DF56C0078171E /* ASAppDelegate.h */,
 				DCD5CE9C184DF56C0078171E /* ASAppDelegate.m */,
 				DCD5CE9E184DF56C0078171E /* Main.storyboard */,
-				DCD5CEA1184DF56C0078171E /* ASViewController.h */,
-				DCD5CEA2184DF56C0078171E /* ASViewController.m */,
 				DCD5CEA4184DF56C0078171E /* Images.xcassets */,
 				DCD5CE93184DF56C0078171E /* Supporting Files */,
 			);
@@ -150,6 +153,24 @@
 				DCD5CEB4184DF56C0078171E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DCD5CEC4184DF7E60078171E /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DCD5CEC1184DF7020078171E /* ASOnCallViewController.h */,
+				DCD5CEC2184DF7020078171E /* ASOnCallViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		DCD5CEC5184DF7F00078171E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DCD5CEC6184DF8310078171E /* ASPerson.h */,
+				DCD5CEC7184DF8310078171E /* ASPerson.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,8 +271,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCD5CEC8184DF8310078171E /* ASPerson.m in Sources */,
 				DCD5CE9D184DF56C0078171E /* ASAppDelegate.m in Sources */,
-				DCD5CEA3184DF56C0078171E /* ASViewController.m in Sources */,
+				DCD5CEC3184DF7020078171E /* ASOnCallViewController.m in Sources */,
 				DCD5CE99184DF56C0078171E /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

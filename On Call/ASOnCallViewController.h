@@ -1,5 +1,5 @@
 //
-//  ASViewController.h
+//  ASOnCallViewController.h
 //  On Call
 //
 //  Created by Robbie Clarken on 3/12/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ASViewController : UIViewController
+@interface ASOnCallViewController : UITableViewController
 
 @end
