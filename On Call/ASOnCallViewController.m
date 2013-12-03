@@ -174,22 +174,36 @@ void addressBookChangedExternally(ABAddressBookRef addressBook, CFDictionaryRef 
 
     cell.textLabel.text = person.group;
     cell.detailTextLabel.text = person.name;
+    cell.userInteractionEnabled = ![person.name isEqualToString:@""];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if (!self.addressBookAccessGranted) {
-        // TODO: Alert user that access must be granted
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Contacts Unavailable"
+														message:@"Please grant this app permission to access Contacts in Settings"
+													   delegate:nil
+											  cancelButtonTitle:@"Cancel"
+											  otherButtonTitles:nil];
+        [alert show];
         return;
     }
     
     self.selectedPerson = (ASPerson *)self.peopleOnCall[indexPath.row];
+    
     ABRecordRef personRecord = [self personRecordForPerson:self.selectedPerson];
     if(personRecord != NULL) {
         [self pushPersonViewController:personRecord animated:YES];
     } else {
-        // TODO: Alert user that person is not in addressbook
+        NSString *message = [NSString stringWithFormat:@"Could not find %@ in the Contacts application", self.selectedPerson.name];
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Contact Not Found"
+														message:message
+													   delegate:nil
+											  cancelButtonTitle:@"Cancel"
+											  otherButtonTitles:nil];
+        [alert show];
     }
 }
 
