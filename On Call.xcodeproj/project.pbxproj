@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC8FA1D8184DFD840076D63F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8FA1D7184DFD840076D63F /* AddressBook.framework */; };
 		DCD5CE8D184DF56C0078171E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD5CE8C184DF56C0078171E /* Foundation.framework */; };
 		DCD5CE8F184DF56C0078171E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD5CE8E184DF56C0078171E /* CoreGraphics.framework */; };
 		DCD5CE91184DF56C0078171E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD5CE90184DF56C0078171E /* UIKit.framework */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DC8FA1D7184DFD840076D63F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		DCD5CE89184DF56C0078171E /* On Call.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On Call.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCD5CE8C184DF56C0078171E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		DCD5CE8E184DF56C0078171E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -63,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC8FA1D8184DFD840076D63F /* AddressBook.framework in Frameworks */,
 				DCD5CE8F184DF56C0078171E /* CoreGraphics.framework in Frameworks */,
 				DCD5CE91184DF56C0078171E /* UIKit.framework in Frameworks */,
 				DCD5CE8D184DF56C0078171E /* Foundation.framework in Frameworks */,
@@ -104,6 +107,7 @@
 		DCD5CE8B184DF56C0078171E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC8FA1D7184DFD840076D63F /* AddressBook.framework */,
 				DCD5CE8C184DF56C0078171E /* Foundation.framework */,
 				DCD5CE8E184DF56C0078171E /* CoreGraphics.framework */,
 				DCD5CE90184DF56C0078171E /* UIKit.framework */,
@@ -483,6 +487,7 @@
 				DCD5CEBD184DF56C0078171E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DCD5CEBE184DF56C0078171E /* Build configuration list for PBXNativeTarget "On CallTests" */ = {
 			isa = XCConfigurationList;
@@ -491,6 +496,7 @@
 				DCD5CEC0184DF56C0078171E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
